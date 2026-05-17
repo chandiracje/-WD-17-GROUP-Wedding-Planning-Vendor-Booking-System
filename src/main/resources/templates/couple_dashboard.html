@@ -14,6 +14,23 @@
         <p>Total Budget: $<span th:text="${couple.estimatedBudget}"></span></p>
         <p>Confirmed Spending: $<span th:text="${spent}"></span></p>
         <p>Remaining: $<span th:text="${remaining}"></span></p>
+
+        <div style="margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px;">
+            <h4>Receive Invoice via Email</h4>
+            <form th:action="@{/couple/invoice}" method="post" style="display: flex; gap: 10px; align-items: center;">
+                <input type="email"
+                       name="recipientEmail"
+                       placeholder="Enter your email address"
+                       required
+                       style="padding: 8px; flex: 1; border: 1px solid #ccc; border-radius: 4px;">
+
+                <button type="submit" class="btn btn-success">Get</button>
+            </form>
+
+            <p th:if="${param.sent}" style="color: green; margin-top: 10px; font-weight: bold;">
+                ✔ Invoice sent successfully!
+            </p>
+        </div>
     </div>
 
     <h3>Available Vendors</h3>
