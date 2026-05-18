@@ -75,9 +75,10 @@ public class CoupleController {
         Couple couple = getLoggedCouple(session);
         if (couple == null) return "redirect:/login";
 
-        LocalDate bookedDate = LocalDate.parse(date);
-        if (bookedDate.isAfter(LocalDate.now())) {
-            return "redirect:/couple/dashboard";
+       LocalDate bookedDate = LocalDate.parse(date);
+
+        if (!bookedDate.isAfter(LocalDate.now())) {
+            return "redirect:/couple/dashboard?error=invalid_date";
         }
 
         Vendor vendor = vendorService.getVendorById(vendorId);
