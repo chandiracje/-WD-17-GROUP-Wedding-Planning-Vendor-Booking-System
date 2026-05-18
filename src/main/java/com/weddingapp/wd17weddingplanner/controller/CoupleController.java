@@ -68,15 +68,21 @@ public class CoupleController {
         return "couple_dashboard";
     }
 
-    //chandira
+    //chandira 
 
     @PostMapping("/book")
     public String bookVendor(@RequestParam Long vendorId, @RequestParam String date, HttpSession session) {
         Couple couple = getLoggedCouple(session);
         if (couple == null) return "redirect:/login";
 
+        LocalDate bookedDate = LocalDate.parse(date);
+        if (bookedDate.isAfter(LocalDate.now())) {
+            return "redirect:/couple/dashboard";
+        }
+
         Vendor vendor = vendorService.getVendorById(vendorId);
         if (vendor != null) {
+
             Booking booking = new Booking();
             booking.setCouple(couple);
             booking.setVendor(vendor);
